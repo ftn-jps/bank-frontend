@@ -1,0 +1,39 @@
+
+<div class="container">
+    <div class="row" *ngIf="!accountSubmitted">
+      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+        <form (ngSubmit)="onSubmit()" #f="ngForm">
+
+          <div id="credit-card-data">
+
+              <div class="form-group">
+                <label for="bankAccountOwnerName"> Please enter the account owner name: </label>
+                <input type="text" id="bankAccountOwnerName" class="form-control" ngModel name="bankAccountOwnerName" pattern="^[a-zA-Z ]*$" required>
+              </div>
+
+            </div>
+
+          <button
+            class="btn btn-primary btn-block"
+            type="submit"
+            [disabled]="!f.valid">Submit</button>
+
+        </form>
+      </div>
+    </div>
+
+    <ngx-spinner
+    bdColor="rgba(51,51,51,0.8)"
+    size="medium"
+    color="#fff"
+    type="ball-atom">
+    <br>
+  <p style="font-size: 30px; color: white"> Creating new bank account... </p>
+  </ngx-spinner>
+
+
+    <div class="row" *ngIf="accountSubmitted">
+      <h1> TODO: Display account information once the new bank account has been opened. </h1>
+    </div>
+</div>
+  

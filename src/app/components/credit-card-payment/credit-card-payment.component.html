@@ -1,0 +1,61 @@
+
+<div class="container">
+    <div class="row" *ngIf="!paymentFinished">
+      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+        <form (ngSubmit)="onSubmit()" #f="ngForm">
+
+          <div id="credit-card-data">
+
+              <div class="form-group">
+                <label for="PAN"> PAN: </label>
+                <input type="text" id="PAN" class="form-control" ngModel name="PAN" pattern="\d{10,19}" required>
+              </div>
+              
+              <div class="form-group">
+                <label for="securityCode"> Security code(CVC): </label>
+                <input type="text" id="securityCode" class="form-control" ngModel name="securityCode" pattern="\d{3,4}" required>
+              </div>
+
+              <div class="form-group">
+                  <label for="cardHolderName"> Card holder name: </label>
+                  <input type="text" id="cardHolderName" class="form-control" ngModel name="cardHolderName" required>
+              </div>
+
+              <div class="form-group">
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="validityDateMonth"> Valid until (month): </label>
+                    <input type="number" id="validityDateMonth" class="form-control" ngModel name="validityDateMonth" pattern="^(1[0-2]|[1-9])$" required>
+                  </div>
+                    <div class="col-md-6">
+                    <label for="validityDate"> Validity until (year): </label>
+                    <input type="number" id="validityDateYear" class="form-control" ngModel name="validityDateYear" pattern="\d{2}" required>
+                  </div>
+                </div>
+                  
+              </div>
+
+            </div>
+
+          <button
+            class="btn btn-primary btn-block"
+            type="submit"
+            [disabled]="!f.valid">Submit</button>
+
+        </form>
+      </div>
+    </div>
+
+    <ngx-spinner
+      bdColor="rgba(51,51,51,0.8)"
+      size="medium"
+      color="#fff"
+      type="ball-atom">
+      <br>
+    <p style="font-size: 30px; color: white">Processing payment...</p>
+    </ngx-spinner>
+
+    <h1 *ngIf="paymentFinished"> Payment successfull! </h1>
+</div>
+  
