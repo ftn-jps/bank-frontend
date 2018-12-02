@@ -4,8 +4,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-new-bank-account',
-  templateUrl: './new-bank-account.component.html',
-  styleUrls: ['./new-bank-account.component.css']
+  templateUrl: './new-bank-account.component.html'
 })
 export class NewBankAccountComponent implements OnInit {
   
