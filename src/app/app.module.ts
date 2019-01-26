@@ -16,6 +16,8 @@ import { CreditCardPaymentComponent } from './components/credit-card-payment/cre
 import { NewBankAccountComponent } from './components/new-bank-account/new-bank-account.component';
 
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { ServerService } from './services/server.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -32,10 +34,11 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     BrowserModule,
     FormsModule,
     HttpModule,
+    HttpClientModule,
     AppRoutingModule,
     NgxSpinnerModule
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [AuthService, AuthGuard, ServerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

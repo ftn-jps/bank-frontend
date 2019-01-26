@@ -16,7 +16,7 @@ const appRoutes: Routes =
     { path: 'signup', component: SignupComponent },
     { path: 'signin', component: SigninComponent },
     { path: 'new-bank-account', component: NewBankAccountComponent },
-    { path: 'credit-card-payment', component: CreditCardPaymentComponent }, //, canActivate: [AuthGuard]}, 
+    { path: 'credit-card-payment/:token', component: CreditCardPaymentComponent }, //, canActivate: [AuthGuard]}, 
     { path: 'not-found', component: ErrorPageComponent, data: {message: 'Page not found!'} },
     { path: '**', redirectTo: '/not-found' }
 ];

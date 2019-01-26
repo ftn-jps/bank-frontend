@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class AuthService {
-  token: string;
+  token: string = "notNull";
 
   constructor(private router: Router) {}
 

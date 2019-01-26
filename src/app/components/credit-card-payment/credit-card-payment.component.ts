@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ActivatedRoute } from '@angular/router';
+import { ServerService } from 'src/app/services/server.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-credit-card-payment',
@@ -14,13 +17,20 @@ export class CreditCardPaymentComponent implements OnInit {
     PAN: '',
     securityCode: '',
     cardHolderName: '',
-    validityDate: ''
+    validityDate: 0
   };
   paymentFinished : boolean = false;
 
-  constructor(private spinner: NgxSpinnerService) {}
+  constructor(
+    private spinner: NgxSpinnerService,
+    private route: ActivatedRoute,
+    private serverService: ServerService
+    ) {}
+
+  private token :String;
 
   ngOnInit() {
+    this.token = this.route.snapshot.params['token'];
   }
 
   onSubmit() {
@@ -28,17 +38,23 @@ export class CreditCardPaymentComponent implements OnInit {
     this.creditCard.PAN = this.creditCardForm.value.PAN;
     this.creditCard.securityCode = this.creditCardForm.value.securityCode;
     this.creditCard.cardHolderName = this.creditCardForm.value.cardHolderName;
-    this.creditCard.validityDate = this.creditCardForm.value.validityDateMonth + '' + this.creditCardForm.value.validityDateYear;
+    // this.creditCard.validityDate = this.creditCardForm.value.validityDateMonth + '' + this.creditCardForm.value.validityDateYear;
+    console.log(moment("20"+ this.creditCardForm.value.validityDateYear + this.creditCardForm.value.validityDateMonth + "01", "YYYYMMDD").valueOf());
+    this.creditCard.validityDate = 1605390265000;
 
     this.creditCardForm.reset();
 
     this.spinner.show();
+
+    this.serverService.executePayment(this.creditCard,this.token)
+      .subscribe(
+        (response : any) => {
+          console.log(response);
+          this.paymentFinished = true;
+        }
+      );
  
-    setTimeout(() => {
-        /** spinner ends after 5 seconds */
-        this.spinner.hide();
-        this.paymentFinished = true;
-    }, 2000);
+
 
   }
 
