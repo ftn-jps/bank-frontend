@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +12,12 @@ constructor(private http: HttpClient) { }
 
 executePayment(formData: any, token :String){
   let body = JSON.stringify(formData);
-  
-  console.log('Usao da izvrsi placanje')
   console.log(body);
-
-  return this.http.post(this.url +'/api/transactions/' + token, body);
+  
+  var headers = new HttpHeaders({
+    'Content-Type' : 'application/json'
+  });
+  return this.http.post(this.url +'/api/transactions/' + token, body, {headers:headers});
 
 }
 

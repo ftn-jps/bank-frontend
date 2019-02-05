@@ -14,10 +14,10 @@ export class CreditCardPaymentComponent implements OnInit {
 
   @ViewChild('f') creditCardForm: NgForm;
   creditCard = {
-    PAN: '',
-    securityCode: '',
-    cardHolderName: '',
-    validityDate: 0
+    pan: '',
+    cvc: '',
+    name: '',
+    validUntilTimestamp: 0
   };
   paymentFinished : boolean = false;
 
@@ -35,12 +35,19 @@ export class CreditCardPaymentComponent implements OnInit {
 
   onSubmit() {
 
-    this.creditCard.PAN = this.creditCardForm.value.PAN;
-    this.creditCard.securityCode = this.creditCardForm.value.securityCode;
-    this.creditCard.cardHolderName = this.creditCardForm.value.cardHolderName;
-    // this.creditCard.validityDate = this.creditCardForm.value.validityDateMonth + '' + this.creditCardForm.value.validityDateYear;
-    console.log(moment("20"+ this.creditCardForm.value.validityDateYear + this.creditCardForm.value.validityDateMonth + "01", "YYYYMMDD").valueOf());
-    this.creditCard.validityDate = 1605390265000;
+    this.creditCard.pan = this.creditCardForm.value.pan;
+    this.creditCard.cvc = this.creditCardForm.value.cvc;
+    this.creditCard.name = this.creditCardForm.value.name;
+    const realValidUntilTimestamp = (moment
+      ("20"+ 
+      this.creditCardForm.value.validityDateYear + 
+      this.creditCardForm.value.validityDateMonth + 
+      "01",
+       "YYYYMMDD").valueOf()
+      );
+    // this.creditCard.validUntilTimestamp = 1605390265000;
+    // ovo kada bude stvarno 
+    this.creditCard.validUntilTimestamp = realValidUntilTimestamp;
 
     this.creditCardForm.reset();
 
@@ -49,7 +56,8 @@ export class CreditCardPaymentComponent implements OnInit {
     this.serverService.executePayment(this.creditCard,this.token)
       .subscribe(
         (response : any) => {
-          console.log(response);
+          this.spinner.hide;
+          alert("Success")
           this.paymentFinished = true;
         }
       );
