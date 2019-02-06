@@ -56,9 +56,11 @@ export class CreditCardPaymentComponent implements OnInit {
     this.serverService.executePayment(this.creditCard,this.token)
       .subscribe(
         (response : any) => {
+          console.log(response);
           this.spinner.hide;
           alert("Success")
           this.paymentFinished = true;
+          window.location.href = response.url;
         }
       );
  
